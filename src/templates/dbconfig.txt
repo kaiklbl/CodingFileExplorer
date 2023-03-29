@@ -1,0 +1,12 @@
+<?php
+    define("DB_USER", "root");
+    define("DB_PWD", "");
+    define("DB_HOST", "localhost");
+    define("DB_NAME", "Hier musst du Leider noch selber schreiben :(" );
+    define("DB_DNS", "mysql:host=".DB_HOST.";dbname=".DB_NAME);
+    
+    $pdo = new PDO(DB_DNS,DB_USER, DB_PWD);
+    
+    // damit die werte als objekte zurückkommen
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+?>

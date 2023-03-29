@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>FileManager</title>
+</head>
+<body>
+
+    <!-- Main-Page -->
+
+    <div class="mainPage">
+
+        <header>
+            <div class="back-btn" id="back-btn"><img src="img/backPfeil.png" alt="back-Button"></div>
+            <div class="back-btn forward" id="forward-btn"><img src="img/backPfeil.png" alt="back-Button"></div>
+
+            <div class="path"></div>
+
+            <!-- Hier sollen Einstellungsmöglichkeiten rein -->
+            <div class="settings">
+                <div>settings</div>
+            </div>
+
+            <input type="text" name="search" id="search">
+            <div class="search-btn"><img src="img/magnifying-glass.png" alt=""></div>
+
+            <div class="close-btn">
+                <div>X</div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Ansicht aller Ordner und Files -->
+        </main>
+
+        <footer>
+            <div class="settings-box">
+                <div id="color-btn">Farben</div>
+                <div id="dir-file">Ordner / File</div>
+            </div>
+
+            <!-- Color-box -->
+            <div class="color-box">
+                <div class="color-box-section">
+                <section>
+                    <p>Hintergrund</p>
+                    <div>
+                        <span>1)</span>
+                        <input type="number" name="num1" id="num1">
+                        <input type="number" name="num2" id="num2">
+                        <input type="number" name="num3" id="num3">
+                    </div>
+                    <div>
+                        <span>2)</span>
+                        <input type="number" name="num4" id="num4">
+                        <input type="number" name="num5" id="num5">
+                        <input type="number" name="num6" id="num6">
+                    </div>
+                    </section>
+                <section>
+                    <p>Text Farbe</p>
+                    <div>
+                        <input type="number" name="num7" id="num7">
+                        <input type="number" name="num8" id="num8">
+                        <input type="number" name="num9" id="num9">
+                    </div>
+                </section>
+                <section>
+                    <p>Button</p>
+                    <div>
+                        <input type="number" name="num10" id="num10">
+                        <input type="number" name="num11" id="num11">
+                        <input type="number" name="num12" id="num12">
+                    </div>
+                    <p>:hover</p>
+                    <div>
+                        <input type="number" name="num13" id="num13">
+                        <input type="number" name="num14" id="num14">
+                        <input type="number" name="num15" id="num15">
+                    </div>
+                </section>
+                <section>
+                    <p>sonstige</p>
+                    <div>
+                        <input type="number" name="num16" id="num16">
+                        <input type="number" name="num17" id="num17">
+                        <input type="number" name="num18" id="num18">
+                    </div>
+                </section>
+            </div>
+                <section>
+                    <div id="color-box-standart">Auf Standart</div>
+                    <div id="color-box-apply">Übernehmen</div>
+                    <div id="color-box-back">Zurück</div>
+                </section>
+            </div>
+            <!-- ######################### -->
+
+            <div class="dir-box">
+                <section class="dir-box-contents">
+                    <!-- hier kommen die Bilder rein in form
+                    div ->img*3 ->div -->
+                    
+                </section>
+                <div id="dir-box-apply">Übernehmen</div>
+                <div id="dir-box-standart">Auf Standart</div>
+                <div id="dir-box-back">Zurück</div>
+            </div>
+
+            <div class="fav-box">
+                <p>Favoriten</p>
+                <div id="fav-list-box">
+                    <!-- 
+                        Hier wird reingebastelt
+                        div
+                        div> name
+                        div> löschen btn
+                     -->
+                </div>
+                <div id="fav-box-back">Zurück</div>
+            </div>
+
+            <div class="create-box">
+                <!-- Hier werden die Eingaben generiert -->
+            </div>
+
+            <div class="advancedCodingDir">
+                <section class="codingBoxes">
+                    <!-- Hier wird reingebastelt
+                    div>
+                    img
+                    span -->
+                </section>
+                <div id="createAdvancedCodingDirBtn">Erstellen</div>
+                <div id="backfromAdvancedCodingDir">Zurück</div>
+            </div>
+
+            <!-- Mehr Optionen Button -->
+            <div class="makeOptions">Weitere Optionen</div>
+            
+            <div class="button-menu">
+                
+                <div id="makeDir"></div>
+                <div id="makeCodingDir"></div>
+                <div id="makeFile"></div>
+                
+            </div>
+            <!-- Hier soll man neue Ordner erstellen können -->
+            <div id="plus-btn">+</div>
+        </footer>
+    </div>
+</body>
+<script src="js/main.js"></script>
+</html>

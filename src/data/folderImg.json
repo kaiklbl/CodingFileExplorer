@@ -1,0 +1,32 @@
+{
+        "folderPack1": {
+            "file": "folder/file_standart.png",
+            "codingFolder":"folder/coding_folder_standart.png",
+            "folder": "folder/folder_standart.png"
+        },
+        "folderPack2": {
+            "file": "folder/file_blue.png",
+            "codingFolder":"folder/coding_folder_blue.png",
+            "folder": "folder/folder_blue.png"
+        },
+        "folderPack3": {
+            "file": "folder/file_black.png",
+            "codingFolder":"folder/coding_folder_violet.png",
+            "folder": "folder/folder_violet.png"
+        },
+        "folderPack4": {
+            "file": "folder/file_silverstripe.png",
+            "codingFolder":"folder/coding_folder_silverstripe.png",
+            "folder": "folder/folder_silverstripe.png"
+        },
+        "folderPack5": {
+            "file": "folder/file_orange.png",
+            "codingFolder":"folder/coding_folder_unicorn.png",
+            "folder": "folder/folder_pink.png"
+        },
+        "folderPack6": {
+            "file": "folder/file_pet.png",
+            "codingFolder":"folder/coding_folder_pet.png",
+            "folder": "folder/folder_pet.png"
+        }  
+}

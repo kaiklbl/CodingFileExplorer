@@ -1,0 +1,4 @@
+-- Texte unter Ordner zentriert
+-- zurück von Optionen nach main klick
+-- Scss/Ts Projekt Template hinzugefügt
+-- Header Path maxlength verkleinert

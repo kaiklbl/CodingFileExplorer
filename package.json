@@ -1,0 +1,21 @@
+{
+  "name": "fileexplorer",
+  "version": "1.0.0",
+  "icon": "coding_folder_blue.png",
+  "description": "FileExplorer",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "KaiK",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^22.0.3",
+    "electron-packager": "^17.1.1"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "osenv": "^0.1.5"
+  }
+}

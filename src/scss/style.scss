@@ -1,0 +1,480 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+$primaryColor: linear-gradient(white 60%,rgb(212, 58, 212));
+$btn-color: rgb(196, 196, 196);
+$btn-color-hover: rgb(130, 130, 130);
+$color-pink: rgb(255, 182, 255);
+
+// Mixins
+@mixin widthHeight($width, $height){
+    width: $width;
+    height: $height;
+}
+
+@mixin hover($backgroundColor){
+    cursor: pointer;
+    background-color: $backgroundColor;
+}
+
+@mixin border($weight, $color, $radius: 0){
+    border: $weight solid $color;
+    border-radius: $radius;
+}
+
+body{
+    background-image: $primaryColor;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+
+// -----------------------MainPage----------------------
+.mainPage{
+    @include widthHeight(100vw, 100vh);
+
+    header{
+        @include border(3px,black);
+        height: 5vh;
+        background-color: $color-pink;
+        display: flex;
+
+        .back-btn{
+            @include widthHeight(3%, 100%);
+            @include border(1px,black, 50%);
+            text-align: center;
+            background-color: $btn-color;
+
+            &:hover{
+                @include hover($btn-color-hover);
+            }
+            
+            img{
+                height: 100%;
+            }
+        }
+        .forward{
+            rotate: 180deg;
+            margin-left: 4px;
+        }
+
+        .path{
+            width: 65%;
+            padding: 0 1rem;
+            text-align: center;
+        }
+
+        .settings{
+            width: 12%;
+            text-align: center;
+
+            div{
+                @include border(1px,black,20%);
+                margin: 2px 1rem;
+                background-color: $btn-color;
+                color: black;
+                font-weight: 600;
+
+                &:hover{
+                    @include hover($btn-color-hover);
+                }
+            }
+        }
+
+
+        .search-btn{
+            width: 4%;
+
+            img{
+                height: 100%;
+                padding: 0 2px;
+                @include border(1px,black);
+                background-color: $btn-color;
+
+                &:hover{
+                    @include hover($btn-color-hover);
+                }
+            }
+        }
+
+        .close-btn{
+            width: 4%;
+
+            div{
+                @include border(1px,black);
+                @include widthHeight(1.4rem, 100%);
+                text-align: center;
+                margin: 0 auto;
+                color: black;
+                font-weight: 600;
+                font-size: 1.3rem;
+                background-color: rgb(255, 92, 92);
+
+                &:hover{
+                    @include hover(red);
+                }
+            }
+        }
+    }
+
+    main{
+        opacity: 1;
+        height: 90vh;
+        display: grid;
+        grid-template-columns:repeat(7,auto);
+        justify-content: center;
+        gap: 2rem;
+        overflow: auto;
+        position: relative;
+        text-align: center;
+
+        div{
+            width: 100%;
+            &:last-child{
+                height: 200px;
+            }
+
+            img{
+                @include widthHeight(100px, 100px);
+                &:hover{
+                    @include hover($btn-color);
+                }
+            }
+        }
+    }
+
+    footer{
+        border-top: 3px solid white;
+        position: relative;
+        
+        // Ordner auswahl
+        .dir-box{
+            color: black;
+            display: none;
+            padding-top: 2rem;
+            position: absolute;
+            text-align: center;
+            @include border(3px,black, 15%);
+            width: 35vw;
+            bottom: 10vh;
+            right: 33vw;
+            gap: 2rem;
+            background-color: #ececec;
+
+            section{
+                margin-right: 1rem;
+                height: 50vh;
+                overflow: auto;
+
+                div{
+                    border-bottom: 1px solid black;
+                    padding: 1rem;
+                    margin: 0 1rem;
+                    
+                    &:hover{
+                        @include hover($btn-color)
+                    }
+                }
+                img{
+                    @include widthHeight(80px,80px );
+                    margin-right: 1rem
+                }
+            }
+
+            >div{
+                @include border(1px ,black ,18px );
+                @include widthHeight(80%, 2rem);
+                background-color: $btn-color;
+                font-size: 1.5rem;
+                margin: 1rem auto;
+
+                &:hover{
+                    @include hover($btn-color-hover);
+                }
+            }
+        }
+
+        // Normale settingsBox
+        .settings-box{
+            color: black;
+            display: none;
+            position: absolute;
+            text-align: center;
+            @include border(3px,black, 20%);
+            width: 20vw;
+            bottom: 50vh;
+            right: 39.5vw;
+            gap: 2rem;
+            background-color: rgb(236, 236, 236);
+
+            div{
+                width: 90%;
+                font-size: 1.5rem;
+                @include border(1px,black, 18px);
+                margin: 0.5rem auto;
+                background-color: $btn-color;
+
+                &:hover{
+                    @include hover($btn-color-hover);
+                }
+            }
+        }
+
+        .color-box{
+            color: black;
+            display: none;
+            position: absolute;
+            text-align: center;
+            @include border(3px,black, 20%);
+            width: 80vw;
+            bottom: 20vh;
+            right: 10vw;
+            gap: 2rem;
+            background-color: rgb(236, 236, 236);
+
+            .color-box-section{
+                display: grid;
+                grid-template-columns: auto auto;
+
+                p{
+                    font-size: 1.3rem;
+                    margin: 0.5rem 1rem;
+                }
+
+                input{
+                    width: 4rem;
+                    margin: 1rem;
+                }
+            }
+
+            >section{
+                display: flex;
+                justify-content: center;
+                gap: 5rem;
+                margin: 1rem 0;
+
+                div{
+                    font-size: 1.5rem;
+                    width: 20%;
+                    @include border(1px,black, 18px);
+                    background-color: $btn-color;
+
+                    &:hover{
+                        @include hover($btn-color-hover);
+                    }
+                }
+            }
+
+        }
+
+        .create-box{
+            color: black;
+            display: none;
+            position: absolute;
+            background-color: white;
+            text-align: center;
+            @include border(3px,black);
+            width: 20vw;
+            bottom: 35vh;
+            right: 39.5vw;
+            gap: 2rem;
+
+            p{
+                border-bottom: 3px solid black;
+                padding: 2px;
+                margin-bottom: 3px;
+                font-weight: 600;
+                background-color: $btn-color;
+            }
+
+            #create-box-btn{
+                @include border(1px,black, 20%);
+                margin: 4px auto;
+                background-color: $btn-color;
+                width: 15vw;
+
+                &:hover{
+                    @include hover($btn-color-hover);
+                }
+            }
+        }
+
+        .fav-box{
+            color: black;
+            display: none;
+            position: absolute;
+            @include border(3px,black, 20%);
+            @include widthHeight(35vw, 70vh);
+            bottom: 15vh;
+            right: 32vw;
+            gap: 2rem;
+            background-color: #ececec;
+
+            p{
+                text-align: center;
+                font-size: 1.5rem;
+            }
+
+            #fav-list-box{
+                @include widthHeight(90%, 75%);
+                margin: 1rem auto;
+                overflow: auto;
+
+                >div{
+                    display: flex;
+                    border-bottom: 1px solid black;
+
+                    div:first-child{
+                        width: 70%;
+                        padding: 1rem;
+                    }
+
+                    div:last-child{
+                        @include widthHeight(20%, 30px);
+                        @include border(1px,black, 20%);
+                        text-align: center;
+                        padding-top: 2px;
+                        margin-top: 0.8rem;
+                        background-color: $btn-color;
+
+                        &:hover{
+                            @include hover($btn-color-hover);
+                        }
+                    }
+                    &:hover{
+                        cursor: pointer;
+                        background-color: $btn-color;
+                    }
+                }
+            }
+
+            #fav-box-back{
+                @include border(1px ,black ,18px );
+                @include widthHeight(80%, 2rem);
+                text-align: center;
+                background-color: $btn-color;
+                font-size: 1.5rem;
+                margin: 0.5rem auto;
+
+                &:hover{
+                    background-color: $btn-color-hover;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        // Plus button button menue
+        .button-menu{
+            color: black;
+            display: none;
+            position: absolute;
+            @include widthHeight(60vw, 30vh);
+            bottom: 15vh;
+            right: 19.5vw;
+            gap: 2rem;
+
+            div{
+                @include border(3px,black, 50%);
+                display: flex;
+                flex-direction: column;
+                width: 30%;
+                text-align: center;
+                background-color: white;
+
+                &:hover{
+                    @include hover($btn-color);
+                }
+
+                img{
+                    @include widthHeight(100px, 100px);
+                    margin: 2rem auto 0;
+                }
+            }
+        }
+
+        // Button für weiter plus button optionen
+        .makeOptions{
+            color: black;
+            position: absolute;
+            display: none;
+            bottom: 50vh;
+            right: 42vw;
+            @include border(1px ,black ,18px );
+            text-align: center;
+            background-color: $btn-color;
+            font-size: 1.5rem;
+
+                &:hover{
+                    background-color: $btn-color-hover;
+                    cursor: pointer;
+                }
+            }
+
+            .advancedCodingDir{
+                display: none;
+                position: absolute;
+                @include widthHeight(60vw, 70vh);
+                bottom: 15vh;
+                right: 20vw;
+                background-color: #ececec;
+                color: black;
+                @include border(3px, black, 18px);
+
+                section{
+                    display: grid;
+                    grid-template-columns: auto auto;
+                    gap: 1rem;
+                    margin: 1rem;
+                    overflow: auto;
+                    height: 75%;
+
+                    div{
+                        display: flex;
+                        align-items: center;
+                        @include border(1px, black, 18px);
+                        
+                        img{
+                            height: 100px
+                        }
+                    }
+                }
+
+                >div{
+                    @include border(1px ,black ,18px );
+                    text-align: center;
+                    background-color: $btn-color;
+                    font-size: 1.5rem;
+                    width: 60%;
+                    margin: 1rem auto;
+
+                    &:hover{
+                        background-color: $btn-color-hover;
+                        cursor: pointer;
+                    }
+                }
+            }
+        
+
+        // Plus button
+        #plus-btn{
+            @include border(3px,white, 50px);
+            position: absolute;
+            @include widthHeight(100px, 80px);
+            bottom: -25px;
+            right: 45%;
+            background-color: rgb(235, 100, 235);
+            font-size: 4rem;
+            font-weight: 700;
+            text-shadow: 1px 1px white;
+            text-align: center;
+
+            &:hover{
+                @include hover(rgb(212, 58, 212));
+            }
+        }
+    }
+}
+

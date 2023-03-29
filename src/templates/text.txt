@@ -1,0 +1,5 @@
+Hier stehen Typische Befehle die man immer wieder mal braucht:
+
+SCSS:   sass scss/style.scss css/style.css
+        sass --watch scss/style.scss css/style.css
+  
