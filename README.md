@@ -1,16 +1,16 @@
 # CodingFileExplorer
 
 ## Installation
-'''
+
 cmd:    npm init 
         npm install --save-dev electron
         npm exec electron-packager . app.js
-'''
+
 
 
 ## Funktionalitäten
     
-Im Header: 
+1. Im Header: 
     Back Button = Mach das was er soll
     History Button = Geht zu den vohrigen Pfad
     Pfad = Hier steht der aktuelle Pfad
@@ -28,7 +28,7 @@ Im Header:
             
     Close Button = Beendet das Programm (Premium Version)
 
-    Im Main:
+2. Im Main:
         Mit Doppelclick Ordner öffnen
         CodingOrdner beinhalten html, css, js Datein
         mit rechtsklick auf ordner kontextmenü öffnen
