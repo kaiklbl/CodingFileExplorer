@@ -24,3 +24,9 @@ Funktionalitäten:
             In VsCode öffnen öffnet in VsCode
             
         
+
+----------------------------------------------------------------
+Für den Download
+cmd:    npm init 
+        npm install --save-dev electron
+        npm exec electron-packager . app.js
