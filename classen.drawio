@@ -1,0 +1,35 @@
+<mxfile host="65bd71144e">
+    <diagram id="bP2EDK5axJn9M0IEbtCw" name="Page-1">
+        <mxGraphModel dx="1274" dy="481" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="FileHandler&lt;br&gt;&lt;hr&gt;+ writeJsonFile(): void&lt;br&gt;+ readJsonFile(): Array[]&lt;br&gt;+ readTxtFile(): Array[]" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-20" y="230" width="160" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" style="edgeStyle=none;html=1;entryX=0.408;entryY=-0.043;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="3" target="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="160" y="170"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="7" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="3" target="6">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" style="edgeStyle=none;html=1;entryX=0.367;entryY=-0.023;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="3" target="8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="abstract: WindowApi&lt;br&gt;&lt;hr&gt;+ windowApi" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="80" width="150" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Path&lt;br&gt;&lt;hr&gt;+ currentPath: String&lt;br&gt;&lt;hr&gt;+ openCmd()&lt;br&gt;+openWin()" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="230" width="120" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="History&lt;br&gt;&lt;hr&gt;+ history: Array[]&lt;hr&gt;+ addToHistory()" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="230" width="120" height="110" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -1,4 +1,5 @@
 import { FileHandler } from './Classes/FileHandler.js'
+import { Path } from './Classes/Path.js';
 
 const $ = data => document.querySelector(data);
 const pre = window.api;
@@ -63,13 +64,10 @@ const favBoxList = $('#fav-list-box');
 const favBoxBack = $('#fav-box-back');
 
 
-// AnfangsPfad / Aktueller Pfad
-let currentPath = pre.getHomeDir();
-
-let history = [];
-
 // Objekte
 const fileHandler = new FileHandler();
+const history = new History();
+const path = new Path(history.history);
 
 // ---------------------------Allgemeine Funktionen---------------------
 // blendent eines aus das andere ein
@@ -77,10 +75,6 @@ const displayBlockNone = (block, none) =>{
     block.style.display = 'block';
     none.style.display = 'none';
 }
-
-
-
-
 
 
 
@@ -93,8 +87,8 @@ const changeHtmlColors = (bodyColor, textColor, buttonColor, headerColor) =>{
 }
 
 body.addEventListener('contextmenu', ()=>{
-    pre.openCmd(currentPath);
-    pre.openWin(currentPath);
+    pre.openCmd(path.currentPath);
+    pre.openWin(path.currentPath);
 })
 main.addEventListener('click', () =>{
     if (main.style.opacity != 1) {
@@ -108,10 +102,10 @@ main.addEventListener('click', () =>{
 // -------------Beim Start erstellte Ordner/Files--------------
 const createMain = () =>{
     main.innerHTML = "";
-    pathSync(currentPath);
+    headerPathSync(path.currentPath);
 
     // Alle Elemente aus Pfad hollen
-    let dirs = pre.getDirContents(currentPath);
+    let dirs = pre.getDirContents(path.currentPath);
     let folders = getFoldersFiles();
     
     dirs.forEach(elem => {
@@ -128,17 +122,17 @@ const createMain = () =>{
         // Bei Ordnerdbclick in den Ordner rein und die main neu erstellen
         div.addEventListener('dblclick', e =>{
             if(type[0] == 1){
-                pre.openFile(pre.pathJoin(currentPath, elem.name));
+                pre.openFile(pre.pathJoin(path.currentPath, elem.name));
             }else{
-                history.push(currentPath);
-                currentPath = pre.pathJoin(currentPath, elem.name);
+                history.history.push(path.currentPath);
+                path.currentPath = pre.pathJoin(path.currentPath, elem.name);
                 createMain();
             } 
         })
 
         div.addEventListener('contextmenu', (e) =>{
-            pre.openDir(currentPath, elem.name);
-            pre.addFavorite(pre.pathJoin(currentPath, elem.name));
+            pre.openDir(path.currentPath, elem.name);
+            pre.addFavorite(pre.pathJoin(path.currentPath, elem.name));
         })
 
         // wenn Name zu lange dann verkürze
@@ -150,15 +144,12 @@ const createMain = () =>{
     });
 
 }
-
-
 const getFoldersFiles = () =>{
     let test = pre.pathJoin(pre.srcPath, 'data');
     let folders = pre.readFile(pre.pathJoin(test, 'folder.json'));
     folders = JSON.parse(folders);
     return folders;
 }
-
 const fileFolderImg = (folders,type,img,elem) =>{
     // Überprüfung ob file oder Ordner
     if(type == 1 ){
@@ -168,9 +159,9 @@ const fileFolderImg = (folders,type,img,elem) =>{
         
         // überprüfung auf Zugriffsrechte
         try {
-            pre.getDirContents(pre.pathJoin(currentPath,elem)).forEach(file => {
+            pre.getDirContents(pre.pathJoin(path.currentPath,elem)).forEach(file => {
               try {
-                pre.fileAccess(pre.pathJoin(currentPath,elem), file);
+                pre.fileAccess(pre.pathJoin(path.currentPath,elem), file);
               } catch (error) {
                 return true;
               }
@@ -180,7 +171,7 @@ const fileFolderImg = (folders,type,img,elem) =>{
           }
 
         // Sucht ob im Ordner coding Datei sind falls ja ersetze das Bild 
-        let codingFolder = pre.getDirContents(pre.pathJoin(currentPath, elem));
+        let codingFolder = pre.getDirContents(pre.pathJoin(path.currentPath, elem));
         codingFolder.forEach(ele => {
             if(ele.name.includes('.html') || ele.name.includes('.css') || ele.name.includes('.js')){
                 img.src = folders.codingDir;
@@ -194,37 +185,40 @@ const fileFolderImg = (folders,type,img,elem) =>{
     return false;
 }
 
-
 // ------------------------------------header Sachen---------------------------------
 // Einen Pfad zurück
-const pathBack = () =>{
-    history.push(currentPath);
-    currentPath = pre.pathJoin(currentPath, "../");
+// Kommt in Path
+pathBack = () =>{
+    history.addToHistory(path.currentPath);
+    path.currentPath = pre.pathJoin(path.currentPath, "../");
     createMain();
 }
 
 // gespeicherte History back
 const historyBack = () =>{
-    if(history.length != 0){
-        let newPath = history.pop();
-        currentPath = newPath;
+    if(history.history.length != 0){
+        let newPath = history.history.pop();
+        path.currentPath = newPath;
         createMain();
     }
 }
 
 // header Pfad aktuell halten
-const pathSync = currentPath => {
+const headerPathSync = (pathParam) => {
     let sub = 0;
     let hPath = '';
-    if(currentPath.length > 85){
-        sub = currentPath.length - 85;
+    if(pathParam.length > 85){
+        sub = pathParam.length - 85;
     }
-    hPath = currentPath.substring(sub,currentPath.length);
+    hPath = pathParam.substring(sub,pathParam.length);
     headerPath.innerHTML = hPath;
 }
 
 forwardBtn.addEventListener('click', historyBack);
-backBtn.addEventListener('click', pathBack);
+backBtn.addEventListener('click', () =>{
+    pathBack();
+    createMain();
+});
 
 
 // ---------------------------------Settings
@@ -463,7 +457,7 @@ const createFavListBox = () =>{
         })
 
         outerDiv.addEventListener('dblclick', () =>{
-            history.push(currentPath);
+            history.history.push(currentPath);
             currentPath = elem.path;
             showFavBox();
             createMain();
@@ -604,7 +598,7 @@ const searchBtnFun = () =>{
     else if(searchInput.value[0] == '#'){
         let input = searchInput.value.substring(1);
         let fav = favList.find(elem => elem.name == input);
-        history.push(currentPath);
+        history.history.push(currentPath);
         currentPath = fav.path
         searchInput.value = '';
         createMain();
@@ -719,7 +713,7 @@ const createBoxFun = () =>{
 
 
 const checkIfExists = (input) =>{
-    let arr = pre.getDirContents(currentPath);
+    let arr = pre.getDirContents(path.currentPath);
     let result = arr.find(elem => {
         return elem.name === input;
       });
@@ -745,11 +739,11 @@ const createDirOrFile = (p,input, option) =>{
     if(p.innerHTML == 'Ordner'){
         let isGooood = checkIfCorrect(input);
         if(isGooood) return;
-        pre.mkDir(currentPath, input)
+        pre.mkDir(path.currentPath, input)
     }else if(p.innerHTML == 'File'){
         let isGooood = checkIfCorrect(input);
         if(isGooood) return;
-        pre.mkFile(currentPath, input ,option);
+        pre.mkFile(path.currentPath, input ,option);
     } 
     createBoxFun();
 }
@@ -757,14 +751,14 @@ const createDirOrFile = (p,input, option) =>{
 // Mach einen CodingOrdner mit der übergebenen Liste
 const createCodingDir = (input, testList) =>{
     const folderFile = (file) =>{
-        pre.mkDir(currentPath, file);
-        currentPath = pre.pathJoin(currentPath, file);
+        pre.mkDir(path.currentPath, file);
+        path.currentPath = pre.pathJoin(path.currentPath, file);
     }
     let isGooood = checkIfCorrect(input);
         if(isGooood) return;
 
-    pre.mkDir(currentPath, input);
-    currentPath = pre.pathJoin(currentPath, input);
+    pre.mkDir(path.currentPath, input);
+    path.currentPath = pre.pathJoin(path.currentPath, input);
     if (testList.includes('.html')) {
         createHtml(testList);
     }
@@ -774,32 +768,32 @@ const createCodingDir = (input, testList) =>{
     if(testList.includes('.css')){
         folderFile('css');
         createCss()
-        currentPath = pre.pathJoin(currentPath, "../");
+        path.currentPath = pre.pathJoin(path.currentPath, "../");
     }
     if(testList.includes('.js')){
         folderFile('js');
         createJs();
-        currentPath = pre.pathJoin(currentPath, "../");
+        path.currentPath = pre.pathJoin(path.currentPath, "../");
     }
     if(testList.includes('.ts')){
         folderFile('ts');
-        pre.mkFile(currentPath, 'main' ,'.ts');
-        currentPath = pre.pathJoin(currentPath, "../");
+        pre.mkFile(path.currentPath, 'main' ,'.ts');
+        currentPath = pre.pathJoin(path.currentPath, "../");
     }
     if(testList.includes('.php')){
-        pre.mkFile(currentPath, 'index' ,'.php');
+        pre.mkFile(path.currentPath, 'index' ,'.php');
     }
     if(testList.includes('.scss')){
         folderFile('scss');
-        pre.mkFile(currentPath, 'style' ,'.scss');
-        currentPath = pre.pathJoin(currentPath, "../");
+        pre.mkFile(path.currentPath, 'style' ,'.scss');
+        path.currentPath = pre.pathJoin(path.currentPath, "../");
     }
     if(testList.includes('dbconfig')){
         folderFile('dbconfig');
         createDbConfig();
-        currentPath = pre.pathJoin(currentPath, "../");
+        path.currentPath = pre.pathJoin(path.currentPath, "../");
     }
-    currentPath = pre.pathJoin(currentPath, "../");
+    path.currentPath = pre.pathJoin(path.currentPath, "../");
     createBoxFun();
 }
 
@@ -807,8 +801,8 @@ const createElectronApp = (input) =>{
     let isGooood = checkIfCorrect(input.value);
         if(isGooood) return;
      
-    pre.mkDir(currentPath, input.value);
-    currentPath = pre.pathJoin(currentPath, input.value);
+    pre.mkDir(path.currentPath, input.value);
+    path.currentPath = pre.pathJoin(path.currentPath, input.value);
     createAppJs();
     createPreloadJs();
     createReadmeAppJs();
@@ -817,7 +811,7 @@ const createElectronApp = (input) =>{
 
 const createScssTs = (input) =>{
     createCodingDir(input.value, ['.scss', '.ts']);
-    currentPath = pre.pathJoin(currentPath, input.value);
+    path.currentPath = pre.pathJoin(path.currentPath, input.value);
     createCodingDir('public',['.html','.css','.js']);
 }
 
