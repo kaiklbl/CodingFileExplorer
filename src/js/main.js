@@ -1,3 +1,5 @@
+import { FileHandler } from './Classes/FileHandler.js'
+
 const $ = data => document.querySelector(data);
 const pre = window.api;
 
@@ -66,6 +68,9 @@ let currentPath = pre.getHomeDir();
 
 let history = [];
 
+// Objekte
+const fileHandler = new FileHandler();
+
 // ---------------------------Allgemeine Funktionen---------------------
 // blendent eines aus das andere ein
 const displayBlockNone = (block, none) =>{
@@ -73,29 +78,11 @@ const displayBlockNone = (block, none) =>{
     none.style.display = 'none';
 }
 
-// WriteFile Funktion
-const writeJsonFile = (data, path, file) =>{
-    data = JSON.stringify(data, '', 4);
-    let test = pre.pathJoin(pre.srcPath, path);
-    let test2 = pre.pathJoin(test,file);
-    pre.writeFile(test2, data);
-}
 
-// ReadFile Funktion
-const readJsonFile = (path, file) =>{
-    let test = pre.pathJoin(pre.srcPath, path);
-    let test2 = pre.pathJoin(test, file);
-    let data = pre.readFile(test2);
-    data = JSON.parse(data);
-    return data;
-}
 
-const readTxtFile = (path, file) =>{
-    let test = pre.pathJoin(pre.srcPath, path);
-    let test2 = pre.pathJoin(test, file);
-    let data = pre.readFile(test2);
-    return data;
-}
+
+
+
 
 // Farben ändern
 const changeHtmlColors = (bodyColor, textColor, buttonColor, headerColor) =>{
@@ -316,7 +303,7 @@ const setNumInputs = (...arg) =>{
         num17 : arg[0][16].value,
         num18 : arg[0][17].value,
     }
-    writeJsonFile(nums,'data','num.json');
+    fileHandler.writeJsonFile(nums,'data','num.json');
 }
 
 // Farbe wechseln und in color.json speichern
@@ -338,7 +325,7 @@ const colorChange = () =>{
         }
     }
     changeHtmlColors(data.colors.body,data.colors.text,data.colors.button,data.colors.header);
-    writeJsonFile(data,'data','color.json');
+    fileHandler.writeJsonFile(data,'data','color.json');
     setNumInputs(numList);
 }
 
@@ -357,7 +344,7 @@ const standartColor = () =>{
             text: standartColor[0].colors.text
         }
     }
-    writeJsonFile(data,'data','color.json');
+    fileHandler.writeJsonFile(data,'data','color.json');
     setOwnColor();
 }
 
@@ -368,11 +355,12 @@ colorBoxStandart.addEventListener('click', standartColor);
 
 // butten events für :hover
 plusBtn.addEventListener('mouseenter', () =>{
-    color = ownColors();
+    console.log(ownColors());
+    const color = ownColors();
     plusBtn.style.backgroundColor = color.buttonHover;
 })
 plusBtn.addEventListener('mouseleave', () =>{
-    color = ownColors();
+    const color = ownColors();
     plusBtn.style.backgroundColor = color.button;
 })
 
@@ -386,7 +374,7 @@ const showDirBox = () =>{
 // Erzeugt die verschiedenen folders zum auswählen
 const createDirBoxContent = () =>{
     dirBoxFolder.innerHTML = '';
-    let dirs = readJsonFile('data','folderImg.json');
+    let dirs = fileHandler.readJsonFile('data','folderImg.json');
     
     // jeden img ein Bild aus den Daten geben und in div anhängen
     for (let folderPack in dirs) {
@@ -403,7 +391,7 @@ const createDirBoxContent = () =>{
                 codingDir: dirs[folderPack].codingFolder,
                 dir: dirs[folderPack].folder
             }
-            writeJsonFile(folder, "data","folder.json");
+            fileHandlerwriteJsonFile(folder, "data","folder.json");
 
             for (let i = 0; i < dirBoxFolder.children.length; i++) {
                 dirBoxFolder.children[i].style.backgroundColor = '#ececec';
@@ -424,9 +412,9 @@ const applyDirBox = () =>{
 
 // auf Standart zurückstellen
 const standartFolderFiles = () =>{
-    let standartFolder = readJsonFile('data','standart.json');
+    let standartFolder = fileHandler.readJsonFile('data','standart.json');
     standartFolder = standartFolder[0].folder;
-    writeJsonFile(standartFolder,"data","folder.json");
+    fileHandler.writeJsonFile(standartFolder,"data","folder.json");
     createMain();
 }
 
@@ -456,7 +444,7 @@ const deleteFav = name =>{
     favList = newFavList;
     console.log(favList);
     createFavListBox();
-    writeJsonFile(favList, 'data', 'favoriten.json');
+    fileHandler.writeJsonFile(favList, 'data', 'favoriten.json');
     readFavorite();
 }
 
@@ -488,7 +476,7 @@ const createFavListBox = () =>{
 }
 
 const readFavorite = () =>{
-    favList = readJsonFile('data','favoriten.json');
+    favList = fileHandler.readJsonFile('data','favoriten.json');
 }
 
 const createFavorite = (favDir, input) =>{
@@ -497,7 +485,7 @@ const createFavorite = (favDir, input) =>{
     if(check == undefined){
     favList.push(favoriteObj);
     console.log(favList);
-    writeJsonFile(favList, 'data', 'favoriten.json');
+    fileHandler.writeJsonFile(favList, 'data', 'favoriten.json');
     readFavorite();
     } else{
         console.log("Gibts schon");
@@ -648,8 +636,8 @@ const backPlusMenu = (btnMenu, opacity, plusOrMinus) =>{
 const createPlusBtnMenu = () =>{
     let folders = getFoldersFiles();
     let list = [makeFile,makeCodingDir,makeDir];
-    let text = ['Datei erstellen','Coding Ordner erstellen','Ordner erstellen'];
-    counter = 0;
+    const text = ['Datei erstellen','Coding Ordner erstellen','Ordner erstellen'];
+    let counter = 0;
     for(let key in folders){
         list[counter].innerHTML = '';
         let img = document.createElement('img');
@@ -968,36 +956,36 @@ const createHtml = (testList) =>{
         var path = 'html.txt';
     }
 
-    let data = readTxtFile('templates', path);
+    let data = fileHandler.readTxtFile('templates', path);
 
     pre.mkFile(currentPath, 'index' ,'.html', data);
 }
 const createTxt =  () =>{
-    let data = readTxtFile('templates', 'text.txt');
+    let data = fileHandler.readTxtFile('templates', 'text.txt');
     pre.mkFile(currentPath, 'help' ,'.txt', data);
 }
 const createJs = () =>{
-    let data = readTxtFile('templates', 'js.txt');
+    let data = fileHandler.readTxtFile('templates', 'js.txt');
     pre.mkFile(currentPath, 'main' ,'.js', data);
 }
 const createCss = () =>{
-    let data = readTxtFile('templates', 'css.txt');
+    let data = fileHandler.readTxtFile('templates', 'css.txt');
     pre.mkFile(currentPath, 'style' ,'.css', data);
 }
 const createDbConfig = () =>{
-    let data = readTxtFile('templates', 'dbconfig.txt');
+    let data = fileHandler.readTxtFile('templates', 'dbconfig.txt');
     pre.mkFile(currentPath, 'dbconfig' ,'.php', data);
 }
 const createAppJs = () =>{
-    let data = readTxtFile('templates', 'appJs.txt');
+    let data = fileHandler.readTxtFile('templates', 'appJs.txt');
     pre.mkFile(currentPath, 'app', '.js', data);
 }
 const createPreloadJs = () =>{
-    let data = readTxtFile('templates', 'preloadJs.txt');
+    let data = fileHandler.readTxtFile('templates', 'preloadJs.txt');
     pre.mkFile(currentPath, 'preload', '.js', data);
 }
 const createReadmeAppJs = () =>{
-    let data = readTxtFile('templates', 'readmeAppJs.txt');
+    let data = fileHandler.readTxtFile('templates', 'readmeAppJs.txt');
     pre.mkFile(currentPath, 'README', '.txt', data);
 }
 

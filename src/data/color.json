@@ -1,6 +1,6 @@
 {
     "colors": {
-        "body": "linear-gradient(rgb(100,100,100),rgb(50,50,50))",
+        "body": "linear-gradient(rgb(255,255,255),rgb(255,50,50))",
         "header": "rgb(0,0,12)",
         "button": "rgb(12,23,123)",
         "buttonHover": "rgb(25,255,213)",

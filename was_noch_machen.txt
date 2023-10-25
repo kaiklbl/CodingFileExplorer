@@ -7,4 +7,6 @@ Was muss gemacht werden:
     Readme ordentlich
     Js in module aufteilen
     Js testen anschaun (gibt es automatisierte tests in Javascript?)
+    Ordnerstruktur 
+    backend refactoren
 

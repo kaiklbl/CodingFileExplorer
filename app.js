@@ -100,12 +100,12 @@ const createWindow = () => {
     icon: path.join(path1, "coding_folder_blue.png"),
     resizable: false,
     webPreferences: {
-      devTools: false,
+      // devTools: false,
       preload: path.join(__dirname,'preload.js'),
       nodeIntegration: true
     }
   });
-  win.removeMenu();
+  // win.removeMenu();
   win.loadFile(path.join(srcDir, 'index.html'));
   win.webContents.on('context-menu', ()=>{
     createMenu(win);
