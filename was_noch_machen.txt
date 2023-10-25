@@ -1,0 +1,10 @@
+Ideen:
+    Mehrer möglichkeiten ordner zu erstellen
+    Design Update um bessere UX zu haben
+    Für Linux funktional machen
+
+Was muss gemacht werden:
+    Readme ordentlich
+    Js in module aufteilen
+    Js testen anschaun (gibt es automatisierte tests in Javascript?)
+

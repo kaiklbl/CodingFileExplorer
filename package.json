@@ -11,11 +11,19 @@
   "author": "KaiK",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^22.0.3",
+    "electron": "^22.3.27",
     "electron-packager": "^17.1.1"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
     "osenv": "^0.1.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaiklbl/CodingFileExplorer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kaiklbl/CodingFileExplorer/issues"
+  },
+  "homepage": "https://github.com/kaiklbl/CodingFileExplorer#readme"
 }
